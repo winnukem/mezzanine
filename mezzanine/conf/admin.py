@@ -1,9 +1,9 @@
 from __future__ import unicode_literals
+from future.builtins import str
 
 from copy import copy
 
 from django.contrib import admin
-from django.contrib.admin.templatetags.admin_static import static
 from django.contrib.messages import info
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
@@ -13,6 +13,7 @@ from mezzanine.core.admin import BaseTranslationModelAdmin
 from mezzanine.conf import settings
 from mezzanine.conf.models import Setting
 from mezzanine.conf.forms import SettingsForm
+from mezzanine.utils.static import static_lazy as static
 from mezzanine.utils.urls import admin_url
 
 
@@ -25,8 +26,8 @@ class SettingsAdmin(admin.ModelAdmin):
     class Media(BaseTranslationModelAdmin.Media):
         css = copy(BaseTranslationModelAdmin.Media.css)
         css["all"] += (static("mezzanine/css/admin/settings.css"),)
-        js = [js.replace(static("tabbed_translation_fields.js"),
-                         static("tabbed_translatable_settings.js"))
+        js = [js.replace(str(static("tabbed_translation_fields.js")),
+                         str(static("tabbed_translatable_settings.js")))
               for js in BaseTranslationModelAdmin.Media.js]
 
     def changelist_redirect(self):
