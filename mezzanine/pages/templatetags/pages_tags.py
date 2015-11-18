@@ -129,7 +129,8 @@ def page_menu(context, token):
             context["page_branch_in_navigation"] = True
         if page.in_footer:
             context["page_branch_in_footer"] = True
-
+    context["page_branch"] = [page for page in context["page_branch"] if page.in_menu]
+    
     t = get_template(template_name)
     return t.render(Context(context))
 
