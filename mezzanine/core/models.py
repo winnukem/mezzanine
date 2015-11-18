@@ -359,7 +359,7 @@ class RichText(models.Model):
     it searchable.
     """
 
-    content = RichTextField(_("Content"))
+    content = RichTextField(_("Content"), null=True, blank=True)
 
     search_fields = ("content",)
 
